@@ -26,7 +26,7 @@
 \newtheorem{definition}{Definition}
 \newtheorem{proposition}{Proposition}
 
-\title{\textbf{The Brain as a Least-Action-Like Cognitive System: \\ Cognitive Path Optimization Under Finite Resources}}
+\title{\textbf{Resource-Constrained Cognitive Path Optimization: \\ From Local Plasticity to Low-Cost Predictive Inference}}
 \author{Qing Zhou}
 \date{}
 
@@ -35,14 +35,14 @@
 \maketitle
 
 \begin{abstract}
-\noindent This paper proposes a least-action-like model of cognition. The brain is not treated as an unlimited computational system searching for absolute truth, but as a finite-resource adaptive system selecting cognitive paths that reduce future uncertainty, support action, and preserve adaptive self-environment coupling under constraints of energy, attention, time, and memory capacity. The claim is not that the biological brain literally obeys the physical principle of least action. Rather, the paper develops a resource-constrained active inference framework. In this framework, predictive coding supplies the error-cancellation mechanism, neural integration supplies a microscopic dynamical basis, synaptic plasticity and adaptive thresholds turn repeated stimulation into priors, variational free energy supplies an observer-level cost function, resource constraints generate a path-level cost functional across time, multi-model Bayesian competition explains the dynamic selection among candidate interpretations, memory dynamics preserve reusable low-cost paths through local plasticity, and the higher-order observer is formalized as a meta-control system that modulates cost weights, precision, update gains, and effective temperature.
+\noindent This paper proposes a resource-constrained cognitive path optimization framework. The brain is not treated as an unlimited computational system searching for absolute truth, but as a finite-resource adaptive system settling into cognitive paths that reduce future uncertainty, support action, and preserve adaptive self-environment coupling under constraints of energy, attention, time, and memory capacity. The formal object is not a physical action functional in the Hamiltonian sense. Rather, the paper develops a resource-constrained active inference framework whose central object is a path-cost functional for dissipative cognitive dynamics. In this framework, predictive coding supplies the error-cancellation mechanism, neural integration supplies a microscopic dynamical basis, synaptic plasticity and adaptive thresholds turn repeated stimulation into priors, variational free energy supplies an observer-level cost function, resource constraints generate a path-level cost functional across time, multi-model Bayesian competition explains the dynamic selection among candidate interpretations, memory dynamics preserve reusable low-cost paths through local plasticity, and the higher-order observer is formalized as a meta-control system that modulates cost weights, precision, update gains, and effective temperature.
 \end{abstract}
 
-\textbf{Keywords:} active inference; free energy principle; least action; cognitive action; memory dynamics; resource constraints; predictive processing; meta-control; abstraction; cognitive overload
+\textbf{Keywords:} active inference; free energy principle; cognitive path optimization; path-cost functional; memory dynamics; resource constraints; predictive processing; local plasticity; meta-control; abstraction; cognitive overload
 
 \section{Starting Point}
 
-In classical physics, the principle of least action states that the actual trajectory of a system is not arbitrary. Under suitable constraints, the system follows a path for which an action functional is stationary or optimal.
+In classical physics, the principle of least action states that the actual trajectory of a system is not arbitrary. Under suitable constraints, the system follows a path for which an action functional is stationary or optimal. The present paper borrows only the broad intuition that trajectories can be compared by accumulated path cost.
 
 An analogous, but not identical, idea can be introduced for cognition:
 
@@ -50,9 +50,9 @@ An analogous, but not identical, idea can be introduced for cognition:
 The brain is not an unlimited computational system. It is a finite-resource system that selects cognitive paths that are sufficiently stable, sufficiently low-cost, able to explain the world, and useful for action.
 \end{quote}
 
-Here ``action'' is not the physical integral of kinetic minus potential energy. It is the accumulated cost paid by a cognitive system across time. This cost includes prediction error, neural energy consumption, attentional load, memory maintenance cost, higher-order control cost, and action cost.
+Here the central object is not physical action, the integral of kinetic minus potential energy. It is a cognitive path-cost functional: the accumulated cost paid by a cognitive system across time. This cost includes prediction error, neural energy consumption, attentional load, memory maintenance cost, higher-order control cost, and action cost.
 
-In this sense, the brain may be understood as a least-action-like cognitive system. More precisely:
+In this sense, the brain may be understood as a resource-constrained path-optimization system. More precisely:
 
 \begin{quote}
 Intelligence is not unlimited computation, but path selection under finite resources.
@@ -68,9 +68,9 @@ Second, the treatment of higher-order control is closely aligned with the Expect
 
 Third, the claim that abstraction is a compressed reusable structure resonates with minimum description length and compression-based theories of learning and curiosity. Rissanen's MDL principle treats good models as those that shorten the description of data. Schmidhuber's theory of compression progress treats improvements in compressibility as a driver of curiosity and discovery. The present framework adds a memory-dynamical interpretation: abstractions persist because repeated co-activation and consolidation leave reusable circuits whose observer-level effect is to reduce future free energy across multiple contexts by more than their maintenance cost.
 
-Finally, the free energy principle and active inference provide the formal background for interpreting perception, action, attention, and learning as forms of uncertainty reduction. The contribution of this paper is to combine active inference with resource-rational costs, control valuation, memory retention, abstraction, and overload into a single least-action-like cognitive path model.
+Finally, the free energy principle and active inference provide the formal background for interpreting perception, action, attention, and learning as forms of uncertainty reduction. The contribution of this paper is to combine active inference with resource-rational costs, control valuation, memory retention, abstraction, and overload into a single resource-constrained cognitive path optimization model.
 
-\section{From Free Energy to Cognitive Action}
+\section{From Free Energy to Cognitive Path Cost}
 
 In the free energy principle and active inference, a system can be modeled as minimizing variational free energy in order to make its internal beliefs approximate the generative structure of the external world. This is a macro-level and normative description. It does not imply that individual neurons explicitly compute a free-energy functional or compare future values.
 
@@ -140,9 +140,9 @@ g_t(\pi_t)
 \end{equation}
 denote the local expected free-energy rate associated with the policy considered at time $t$. This keeps the integrand dimensionally and temporally consistent.
 
-Define a resource-constrained cognitive action functional:
+Define a resource-constrained cognitive path-cost functional:
 \begin{equation}
-\mathcal{A}_{cog}[q,\pi]
+\mathcal{C}_{path}[q,\pi]
 =
 \int_{t_0}^{t_1}
 \left[
@@ -191,7 +191,7 @@ Cognitive path selection can then be written as
 (q^*,\pi^*)
 =
 \arg\min_{q,\pi}
-\mathcal{A}_{cog}[q,\pi].
+\mathcal{C}_{path}[q,\pi].
 \end{equation}
 
 This is not a direct equivalence to physical action. It is a path-cost functional for a resource-constrained active inference system.
@@ -821,7 +821,7 @@ The model integrates the following closed chain:
 \text{lower future error and energy}
 \\
 &\rightarrow
-\text{cognitive action}
+\text{cognitive path cost}
 \rightarrow
 \text{multi-path competition}
 \rightarrow
@@ -848,7 +848,7 @@ P(k)
 \propto
 \exp
 \left(
--\frac{\mathcal{A}_k}{T_{\mathrm{eff}}}
+-\frac{\mathcal{C}_k}{T_{\mathrm{eff}}}
 \right).
 \end{equation}
 
@@ -860,7 +860,7 @@ Third, the local-repetition retention rule predicts that repeatedly co-activated
 
 Fourth, the abstraction rule predicts that shared structure across tasks should promote compressed representations. Under resource stress, abstraction depth should decrease: participants should rely more on concrete familiar exemplars and less on higher-level rules. In computational models, this should appear as a shift from higher-level latent variables toward lower-level cached policies.
 
-These predictions do not prove that the biological brain exactly minimizes $\mathcal{A}_{cog}$. They make the framework falsifiable: if manipulations of load, control cost, repetition, consolidation, or memory value do not change choice entropy, control allocation, retention, or abstraction in the predicted directions, the model must be revised.
+These predictions do not prove that the biological brain exactly minimizes $\mathcal{C}_{path}$. They make the framework falsifiable: if manipulations of load, control cost, repetition, consolidation, or memory value do not change choice entropy, control allocation, retention, or abstraction in the predicted directions, the model must be revised.
 
 \section{What Can Be Proved and What Remains Hypothetical?}
 
@@ -891,7 +891,7 @@ Other parts remain hypotheses:
 \toprule
 \textbf{Claim} & \textbf{Status} \\
 \midrule
-The biological brain exactly minimizes this cognitive action & Hypothesis \\
+The biological brain exactly minimizes this cognitive path-cost functional & Hypothesis \\
 The specific forms of energetic, attentional, mnemonic, and control costs are unique & Hypothesis \\
 Higher-order meta-control maps cleanly onto a specific brain region & Requires empirical support \\
 Effective temperature precisely represents cognitive overload & Effective model \\
@@ -919,10 +919,10 @@ The brain does not search for truth through unlimited computation. Under finite 
 In a more academic form:
 
 \begin{quote}
-The brain may be understood as a least-action-like cognitive system. Under finite energetic, attentional, temporal, and mnemonic resources, local neural dynamics make repeatedly useful perceptual, mnemonic, and action trajectories easier to reactivate; at the macro level, these trajectories can be modeled as minimizing accumulated variational free energy while preserving adaptive self-environment coupling.
+The brain may be understood as a resource-constrained cognitive path optimization system. Under finite energetic, attentional, temporal, and mnemonic resources, local neural dynamics make repeatedly useful perceptual, mnemonic, and action trajectories easier to reactivate; at the macro level, these trajectories can be modeled as minimizing accumulated path cost and variational free energy while preserving adaptive self-environment coupling.
 \end{quote}
 
-This is the core of the least-action-like cognitive model.
+This is the core of the resource-constrained cognitive path optimization framework.
 
 \section*{References}
 
