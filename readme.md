@@ -2,3 +2,9 @@
 
 ###### 002: Mass as Confinement: A Unified Framework for Relativistic Matter, Time, and Entropic Gravity
 
+###### 003: Lossy Memory as the Physical Origin of Abstraction: From Leaky Integrate-and-Fire Dynamics to Civilizational Knowledge Generalization
+
+###### 004: Memory Dynamics and Higher-Order Observer Loops as Structural Conditions for Human-Like Intelligence: An Active Inference Perspective on Consciousness, Intelligence, and Personality
+
+###### 005: Resource-Constrained Cognitive Path Optimization: From Local Plasticity to Low-Cost Predictive Inference
+
