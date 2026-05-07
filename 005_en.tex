@@ -35,7 +35,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent This paper proposes a resource-constrained cognitive path optimization framework. The brain is not treated as an unlimited computational system searching for absolute truth, but as a finite-resource adaptive system settling into cognitive paths that reduce future uncertainty, support action, and preserve adaptive self-environment coupling under constraints of energy, attention, time, and memory capacity. The formal object is not a physical action functional in the Hamiltonian sense. Rather, the paper develops a resource-constrained active inference framework whose central object is a path-cost functional for dissipative cognitive dynamics. In this framework, predictive coding supplies the error-cancellation mechanism, neural integration supplies a microscopic dynamical basis, synaptic plasticity and adaptive thresholds turn repeated stimulation into priors, variational free energy supplies an observer-level cost function, resource constraints generate a path-level cost functional across time, multi-model Bayesian competition explains the dynamic selection among candidate interpretations, memory dynamics preserve reusable low-cost paths through local plasticity, and the higher-order observer is formalized as a meta-control system that modulates cost weights, precision, update gains, and effective temperature.
+\noindent This paper proposes a resource-constrained cognitive path optimization framework. The brain is not treated as an unlimited computational system searching for absolute truth, but as a finite-resource adaptive system settling into cognitive paths that reduce future uncertainty, support action, and preserve adaptive self-environment coupling under constraints of energy, attention, time, and memory capacity. The formal object is not a physical action functional in the Hamiltonian sense. Rather, the paper develops a resource-constrained active inference framework whose central object is a path-cost functional for dissipative cognitive dynamics. In this framework, predictive coding supplies the error-cancellation mechanism, neural integration supplies a microscopic dynamical basis, synaptic plasticity and adaptive thresholds turn repeated stimulation into priors, variational free energy supplies an observer-level cost function, resource constraints generate a path-level cost functional across time, multi-model Bayesian competition explains the dynamic selection among candidate interpretations, memory dynamics implement free-energy minimization across time by preserving reusable low-cost paths through local plasticity, and the higher-order observer is formalized as a meta-control system that modulates cost weights, precision, update gains, and effective temperature.
 \end{abstract}
 
 \textbf{Keywords:} active inference; free energy principle; cognitive path optimization; path-cost functional; memory dynamics; resource constraints; predictive processing; local plasticity; meta-control; abstraction; cognitive overload
@@ -495,6 +495,89 @@ The brain does not compute everything from scratch. It preserves useful paths fr
 
 Memory is therefore not a complete recording of the past. It is a compressed, selective, and reconstructive preservation of past cognitive paths.
 
+\subsection{Memory Dynamics as Temporal Free-Energy Minimization}
+
+The central point can now be stated explicitly: memory dynamics are not an additional module placed after free-energy minimization. They can be understood as the temporal implementation of free-energy minimization. The system lowers future free energy not only by changing momentary beliefs, but also by changing what is retained, forgotten, reactivated, and consolidated.
+
+Let the current observation be $o_t$, the memory state be $m_t$, and the generative prediction be
+\begin{equation}
+\hat o_t
+=
+G(m_t).
+\end{equation}
+The prediction error is
+\begin{equation}
+\varepsilon_t
+=
+o_t-G(m_t).
+\end{equation}
+Under a Gaussian predictive-coding approximation, free energy can be written as
+\begin{equation}
+F_t(m_t)
+=
+\frac{1}{2}\varepsilon_t^\top\Pi_t\varepsilon_t
++
+C(m_t),
+\end{equation}
+where $\Pi_t$ is precision and $C(m_t)$ summarizes complexity, maintenance, retrieval, or capacity cost. If memory updates follow a free-energy gradient flow,
+\begin{equation}
+\dot m_t
+=
+-\eta\nabla_m F_t
+-
+\lambda m_t
++
+\xi_t,
+\end{equation}
+then, for a small update $\Delta m_t=-\eta\nabla_mF_t$, the first-order change satisfies
+\begin{equation}
+\Delta F_t
+\approx
+\nabla_mF_t^\top\Delta m_t
+=
+-\eta\lVert\nabla_mF_t\rVert^2
+\le
+0.
+\end{equation}
+Thus, under these assumptions, memory updating is a way of moving the internal generative model toward lower free energy across time. Expanding the gradient gives
+\begin{equation}
+-\nabla_m F_t
+=
+\left(\frac{\partial G}{\partial m}\right)^\top
+\Pi_t\varepsilon_t
+-
+\nabla_m C(m_t),
+\end{equation}
+so a memory update can be written as
+\begin{equation}
+\dot m_t
+=
+\eta q_t
+\left(\frac{\partial G}{\partial m}\right)^\top
+\Pi_t\varepsilon_t
+-
+\eta\nabla_m C(m_t)
+-
+\lambda m_t
++
+\xi_t.
+\end{equation}
+The gate
+\begin{equation}
+q_t
+=
+\sigma\left(
+a_\varepsilon\lVert\Pi_t\varepsilon_t\rVert
++
+a_VV_t
++
+a_N\mathrm{Novelty}_t
+-
+a_EE_{\mathrm{plastic},t}
+\right)
+\end{equation}
+means that not every error is written into memory. Prediction error, precision, value, novelty, and plasticity cost determine whether an event is worth updating or consolidating. In this sense, forgetting is not merely a failure of storage. It is the complexity and maintenance-cost side of the same optimization: traces that no longer reduce future prediction error enough to justify their cost are allowed to decay.
+
 Let the strength of a memory trace be
 \begin{equation}
 m_i(t)\in[0,1].
@@ -514,7 +597,7 @@ dm_i
 \alpha_n n_i(t)
 \right]dt
 +
-\sigma_m dW_t^i,
+\sigma_m dB_t^i,
 \end{equation}
 where $a_i(t)$ is recent activation of the trace; $\mathrm{coact}_i(t)$ is local pre-post or circuit-level co-activation; $n_i(t)$ is a neuromodulatory or consolidation signal, such as salience, reward, arousal, sleep-dependent replay, or biological availability for plasticity; and $\lambda_i m_i$ is decay or competition from unused traces.
 
@@ -954,7 +1037,9 @@ Second, when control cost increases, the system should allocate less control to 
 
 Third, the local-repetition retention rule predicts that repeatedly co-activated traces should be more likely to remain reusable and to be reactivated later, especially when they improve subsequent prediction or action. This can be tested with delayed recall, recognition, sleep-dependent consolidation, representational reinstatement, and transfer tasks. The modeler may describe the successful trace as one that reduces future free energy, but the biological mechanism is local plasticity and consolidation, not explicit future-value computation.
 
-Fourth, the abstraction rule predicts that shared structure across tasks should promote compressed representations. Under resource stress, abstraction depth should decrease: participants should rely more on concrete familiar exemplars and less on higher-level rules. In computational models, this should appear as a shift from higher-level latent variables toward lower-level cached policies.
+Fourth, the temporal free-energy account of memory predicts that memory updates should be strongest when a trace has high precision-weighted prediction-error relevance, high value or novelty, and acceptable plasticity cost. Conversely, increasing maintenance or retrieval cost should accelerate forgetting for traces that do not improve later prediction. This can be tested by independently manipulating predictability, reward relevance, novelty, interference, and post-learning consolidation.
+
+Fifth, the abstraction rule predicts that shared structure across tasks should promote compressed representations. Under resource stress, abstraction depth should decrease: participants should rely more on concrete familiar exemplars and less on higher-level rules. In computational models, this should appear as a shift from higher-level latent variables toward lower-level cached policies.
 
 These predictions do not prove that the biological brain exactly minimizes $\mathcal{C}_{path}$. They make the framework falsifiable: if manipulations of load, control cost, repetition, consolidation, or memory value do not change choice entropy, control allocation, retention, or abstraction in the predicted directions, the model must be revised.
 
@@ -974,6 +1059,7 @@ Softmax weights arise from accumulated cost & Provable \\
 The continuous-time limit yields replicator dynamics & Provable \\
 Logits guarantee legal probability weights & Provable \\
 Gradient flow monotonically decreases free energy & Provable under specified conditions \\
+Memory-gradient flow decreases free energy for small updates & Provable under specified modeling assumptions \\
 Observer-level memory retention can be represented by a threshold rule & Derivable under net-benefit modeling \\
 Abstract structure retention generalizes the observer-level memory rule & Derivable from that model \\
 \bottomrule
@@ -1009,13 +1095,13 @@ A computable, simulable, and prediction-generating normative model of cognition.
 The whole theory can be condensed into one statement:
 
 \begin{quote}
-The brain does not search for truth through unlimited computation. Under finite resources, it settles into low-action cognitive paths through local neural dynamics. Neural integration supplies the microscopic dynamics, repeated activation and plasticity supply the mechanism of memory, free-energy minimization supplies the observer-level description of error reduction, and the higher-order observer, understood as a meta-control system, reallocates resources among candidate paths. When cognitive load exceeds the system boundary, low-action paths become difficult to maintain, and the system may show fatigue, attentional collapse, failure of higher-order integration, and cognitive instability.
+The brain does not search for truth through unlimited computation. Under finite resources, it settles into low-action cognitive paths through local neural dynamics. Neural integration supplies the microscopic dynamics, repeated activation and plasticity implement memory, memory dynamics realize free-energy minimization across time by selecting which traces become future priors, and the higher-order observer, understood as a meta-control system, reallocates resources among candidate paths. When cognitive load exceeds the system boundary, low-action paths become difficult to maintain, and the system may show fatigue, attentional collapse, failure of higher-order integration, and cognitive instability.
 \end{quote}
 
 In a more academic form:
 
 \begin{quote}
-The brain may be understood as a resource-constrained cognitive path optimization system. Under finite energetic, attentional, temporal, and mnemonic resources, local neural dynamics make repeatedly useful perceptual, mnemonic, and action trajectories easier to reactivate; at the macro level, these trajectories can be modeled as minimizing accumulated path cost and variational free energy while preserving adaptive self-environment coupling.
+The brain may be understood as a resource-constrained cognitive path optimization system. Under finite energetic, attentional, temporal, and mnemonic resources, local neural dynamics make repeatedly useful perceptual, mnemonic, and action trajectories easier to reactivate. At the macro level, memory dynamics are the temporal mechanism by which past experience is selectively retained, compressed, or forgotten so that future prediction errors, control demands, and action costs can be reduced while preserving adaptive self-environment coupling.
 \end{quote}
 
 This is the core of the resource-constrained cognitive path optimization framework.
