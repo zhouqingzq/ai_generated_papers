@@ -8,3 +8,5 @@
 
 ###### 005: Resource-Constrained Cognitive Path Optimization: From Local Plasticity to Low-Cost Predictive Inference
 
+###### 006: Memory as Propagation Terrain: A Computational Theory Inspired by Neural Fields, Replay, Plasticity, and Free Energy
+
