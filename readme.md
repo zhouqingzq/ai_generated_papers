@@ -10,3 +10,5 @@
 
 ###### 006: Memory as Propagation Terrain: A Computational Theory Inspired by Neural Fields, Replay, Plasticity, and Free Energy
 
+###### 007: Language as an Activation-Control Signal for Associative Memory: A Testable Framework from Propagation Terrain to Transformers
+
